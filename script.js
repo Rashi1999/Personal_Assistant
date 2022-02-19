@@ -1,6 +1,8 @@
 var period_btn=document.getElementById("period_submit");
 var list_btn=document.getElementById("add_list_item");
 var money_btn=document.getElementById("add_expense");
+var reset_per_btn=document.getElementById("reset");
+var reset_exp_btn=document.getElementById("reset_exp");
 // var list=document.querySelectorAll("ul")[0];
 // var expense=document.querySelectorAll("ul")[1];
 var amt_type=document.querySelector("select");
@@ -13,7 +15,7 @@ function periodTrack(){
     var d = new Date(start_date);
     d.setDate(d.getDate()+duration);
     var diff=Math.floor((d.getTime()-Date.now())/(1000 * 3600 * 24));
-    document.getElementById("next_cycle").innerHTML = "Next cycle from : "+d.toDateString()+" <br>Days left : "+diff;
+    document.getElementById("next_cycle").innerHTML = "Next cycle from : "+d.toDateString()+" <br><br>Days left : "+diff;
 }
 
 function addItemInList(){
@@ -95,7 +97,27 @@ function trackMoney(){
         }
       });
 }
+function clear_period(){
+  document.getElementById('next_cycle').innerHTML=' ';
+}
+
+function clear_expense(){
+  document.getElementById('exp_tab').innerHTML='';
+  // document.getElementById('myChart').innerHTML='&nbsp;'; 
+  // document.getElementById("myChart").destroy();
+  // document.getElementById("myChart").innerHTML = '<canvas id="myChart"></canvas>';
+// var ctx = document.getElementById("myChart").getContext("2d");
+  // document.getElementById('myChart').destroy(); 
+  var parent = document.getElementById('contain_canvas');
+  var child = document.getElementById('myChart');  
+  parent.removeChild(child);            
+  parent.innerHTML ='<canvas id="myChart"></canvas>';             
+  exp=0;
+  inc=0;
+}
 
 period_btn.addEventListener("click",periodTrack);
 list_btn.addEventListener("click",addItemInList);
 money_btn.addEventListener("click",trackMoney);
+reset_per_btn.addEventListener("click",clear_period);
+reset_exp_btn.addEventListener("click",clear_expense);
